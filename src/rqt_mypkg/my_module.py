@@ -42,7 +42,7 @@ class MyPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
         # Add widget to the user interface
-        self._widget.better_name.setIcon(QIcon.fromTheme('view-refresh'))
+        self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('view-refresh'))
         context.add_widget(self._widget)
 
     def shutdown_plugin(self):
