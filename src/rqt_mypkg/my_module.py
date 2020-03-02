@@ -42,9 +42,32 @@ class MyPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
         # Add widget to the user interface
-        self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('view-refresh'))
+        self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('document-open'))
+
+	self._widget.add_robot.pressed.connect(self._update_robot_list)
+
         context.add_widget(self._widget)
 
+    def _update_robot_list(self):
+	path = '/opt/ros/kinetic/share/rqt_mypkg/resource/robots.txt'
+	path = '/home/colin/ros-gui/resource/robots.txt'
+	ip = self._widget.ip_address.text()
+	name = self._widget.robot_name.text()
+	inLine = False
+	if ip and name:
+		#with open(path, 'r') as read_obj:
+		#	for line in read_obj:
+		#		if ip in line:
+		#			inLine = True
+		
+		#if inLine:
+		file_object = open(path, 'a')
+		file_object.write(ip + " " + name + '\n')
+		file_object.close()
+		print("Added Robot " + name)
+		#else:
+		#	print("Could not add Robot " + name + " because it already exist")
+    
     def shutdown_plugin(self):
         # TODO unregister all publishers here
         pass
