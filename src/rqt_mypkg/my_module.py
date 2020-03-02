@@ -50,7 +50,7 @@ class MyPlugin(Plugin):
 
     def _update_robot_list(self):
 	path = '/opt/ros/kinetic/share/rqt_mypkg/resource/robots.txt'
-	path = '/home/colin/ros-gui/resource/robots.txt'
+	path = '/home/colin/ros-gui/deploy/robots.txt'
 	ip = self._widget.ip_address.text()
 	name = self._widget.robot_name.text()
 	inLine = False
