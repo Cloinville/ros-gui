@@ -4,7 +4,7 @@ import rospkg
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
-from python_qt_binding.QtWidgets import QWidget
+from python_qt_binding.QtWidgets import QWidget, QFileDialog, QLayoutItem, QCheckBox
 from python_qt_binding.QtGui import QIcon
 
 class MyPlugin(Plugin):
@@ -28,45 +28,64 @@ class MyPlugin(Plugin):
 
         # Create QWidget
         self._widget = QWidget()
-        # Get path to UI file which should be in the "resource" folder of this package
         ui_file = os.path.join(rospkg.RosPack().get_path('rqt_mypkg'), 'resource', 'MyPlugin.ui')
-        # Extend the widget with all attributes and children from UI file
         loadUi(ui_file, self._widget)
-        # Give QObjects reasonable names
         self._widget.setObjectName('MyPluginUi')
-        # Show _widget.windowTitle on left-top of each plugin (when 
-        # it's set in _widget). This is useful when you open multiple 
-        # plugins at once. Also if you open multiple instances of your 
-        # plugin at once, these lines add number to make it easy to 
-        # tell from pane to pane.
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
-        # Add widget to the user interface
+        
+
         self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('document-open'))
-
 	self._widget.add_robot.pressed.connect(self._update_robot_list)
+	self._widget.load_algorithm_button.pressed.connect(self._add_algorithm)
+	
+	path = '/home/colin/ros-gui/deploy/robots.txt'
+	file_object = open(path, 'r')
+	robot_dict = {}
+	counter = 0
+	for lines in file_object:
+		values = lines.split()
+		if values[1] is not None:
+			robot_dict[counter] = QCheckBox(values[1])
+			self._widget.robot_check_layout.addWidget(robot_dict.get(counter))
+		counter +=1
+	file_object.close()	
+	#button1 =  QCheckBox("One")
+	#self._widget.robot_check_layout.addWidget(button1)
+	
+	
+	# Add widget to the user interface
+	context.add_widget(self._widget)
 
-        context.add_widget(self._widget)
+    def run_funct(self):
+	print("I run")
+
+    def _add_algorithm(self, file_name=None):
+	if file_name is None:
+            file_name, _ = QFileDialog.getOpenFileName(
+                self._widget, self.tr('Upload Algorithm'), None, None)
+            if file_name is None or file_name == '':
+                return
+	
+	path = '/home/colin/ros-gui/deploy/algorithms.txt'
+	if file_name:	
+		file_object = open(path, 'a')
+		file_object.write(file_name)
+		file_object.close()
+		print("Added Algorithm ")
+
 
     def _update_robot_list(self):
-	path = '/opt/ros/kinetic/share/rqt_mypkg/resource/robots.txt'
+	#path = '/opt/ros/kinetic/share/rqt_mypkg/resource/robots.txt'
 	path = '/home/colin/ros-gui/deploy/robots.txt'
 	ip = self._widget.ip_address.text()
 	name = self._widget.robot_name.text()
-	inLine = False
 	if ip and name:
-		#with open(path, 'r') as read_obj:
-		#	for line in read_obj:
-		#		if ip in line:
-		#			inLine = True
-		
-		#if inLine:
 		file_object = open(path, 'a')
 		file_object.write(ip + " " + name + '\n')
 		file_object.close()
 		print("Added Robot " + name)
-		#else:
-		#	print("Could not add Robot " + name + " because it already exist")
+		
     
     def shutdown_plugin(self):
         # TODO unregister all publishers here

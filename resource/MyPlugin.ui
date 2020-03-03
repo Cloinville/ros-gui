@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>OptiTrack</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -21,7 +21,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="add_robot_line" stretch="0,0,0,0,0">
+    <layout class="QHBoxLayout" name="add_robot_line">
      <item>
       <widget class="QLabel" name="ip_address_name">
        <property name="text">
@@ -52,7 +52,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="add_algorithm_line" stretch="0,0">
+    <layout class="QHBoxLayout" name="add_algorithm_line">
      <item>
       <widget class="QLabel" name="add_algorithm_text">
        <property name="text">
@@ -76,6 +76,14 @@
      </item>
 
     </layout>
+   </item>
+
+   <item>
+    <widget class="QScrollArea" name="robot_scroll_box">
+     <layout class="QHBoxLayout" name="robot_check_layout">
+      
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
