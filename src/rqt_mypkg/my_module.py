@@ -47,11 +47,22 @@ class MyPlugin(Plugin):
 		values = lines.split()
 		if values[1] is not None:
 			robot_dict[counter] = QCheckBox(values[1])
-			self._widget.robot_check_layout.addWidget(robot_dict.get(counter))
+			self._widget.robot_check_layout.addWidget(robot_dict.get(counter),int(counter/3),counter%3,1,1)
+		counter +=1
+	file_object.close()
+
+	path = '/home/colin/ros-gui/deploy/algorithms.txt'
+	file_object = open(path, 'r')
+	alg_dict = {}
+	counter = 0
+	for lines in file_object:
+		values = lines.split('/')
+		if values[-1] is not None or "":
+			alg_dict[counter] = QCheckBox(values[-1])
+			self._widget.algorithm_radio_layout.addWidget(alg_dict.get(counter),int(counter/3),counter%3,1,1)
 		counter +=1
 	file_object.close()	
-	#button1 =  QCheckBox("One")
-	#self._widget.robot_check_layout.addWidget(button1)
+	
 	
 	
 	# Add widget to the user interface

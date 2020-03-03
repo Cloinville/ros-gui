@@ -1,1 +1,5 @@
 /home/colin/ros-gui/package.xml
+/home/colin/ros-gui/speed.xml
+/home/colin/ros-gui/swarm.xml
+/home/colin/ros-gui/hunt.xml
+/home/colin/ros-gui/destroy.xml

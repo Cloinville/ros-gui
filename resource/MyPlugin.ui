@@ -77,13 +77,27 @@
 
     </layout>
    </item>
-
    <item>
-    <widget class="QScrollArea" name="robot_scroll_box">
-     <layout class="QHBoxLayout" name="robot_check_layout">
-      
+      <widget class="QLabel" name="Robots_checkbox_text">
+       <property name="text">
+        <string>Select your Robots</string>
+       </property>
+      </widget>
+     </item>
+   <item>
+    <layout class="QGridLayout" name="robot_check_layout">
      </layout>
-    </widget>
+   </item>
+   <item>
+      <widget class="QLabel" name="Algorithm_radio_text">
+       <property name="text">
+        <string>Select your Algorithm</string>
+       </property>
+      </widget>
+     </item>
+   <item>
+    <layout class="QGridLayout" name="algorithm_radio_layout">
+     </layout>
    </item>
   </layout>
  </widget>
