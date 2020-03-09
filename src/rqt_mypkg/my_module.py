@@ -73,7 +73,7 @@ class MyPlugin(Plugin):
     def run_funct(self):
 	for check in robot_dict:
 		if robot_dict[check][1].checkState() == 2: # 2 is check state
-			subprocess.call(["/home/colin/ros-gui/src/rqt_mypkg/start_robot.sh" ,robot_dict[check][0]])
+			subprocess.call(["/home/colin/ros-gui/deploy/rqt_mypkg/start_robot.sh" ,robot_dict[check][0]])
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:
