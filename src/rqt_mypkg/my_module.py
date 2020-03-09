@@ -1,11 +1,14 @@
 import os
 import rospy
 import rospkg
+import subprocess
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QFileDialog, QLayoutItem, QCheckBox
 from python_qt_binding.QtGui import QIcon
+
+robot_dict = {}
 
 class MyPlugin(Plugin):
 
@@ -34,20 +37,19 @@ class MyPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
         
-
-        self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('document-open'))
+	self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('document-open'))
 	self._widget.add_robot.pressed.connect(self._update_robot_list)
 	self._widget.load_algorithm_button.pressed.connect(self._add_algorithm)
-	
+	self._widget.run_button.pressed.connect(self.run_funct)
+
 	path = '/home/colin/ros-gui/deploy/robots.txt'
 	file_object = open(path, 'r')
-	robot_dict = {}
 	counter = 0
 	for lines in file_object:
 		values = lines.split()
 		if values[1] is not None:
-			robot_dict[counter] = QCheckBox(values[1])
-			self._widget.robot_check_layout.addWidget(robot_dict.get(counter),int(counter/3),counter%3,1,1)
+			robot_dict[counter] = [values[0], QCheckBox(values[1])]
+			self._widget.robot_check_layout.addWidget(robot_dict.get(counter)[1],int(counter/3),counter%3,1,1)
 		counter +=1
 	file_object.close()
 
@@ -69,7 +71,9 @@ class MyPlugin(Plugin):
 	context.add_widget(self._widget)
 
     def run_funct(self):
-	print("I run")
+	for check in robot_dict:
+		if robot_dict[check][1].checkState() == 2: # 2 is check state
+			subprocess.call(["/home/colin/ros-gui/src/rqt_mypkg/start_robot.sh" ,robot_dict[check][0]])
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:

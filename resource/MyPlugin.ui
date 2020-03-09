@@ -85,6 +85,7 @@
       </widget>
      </item>
    <item>
+    
     <layout class="QGridLayout" name="robot_check_layout">
      </layout>
    </item>
@@ -99,6 +100,20 @@
     <layout class="QGridLayout" name="algorithm_radio_layout">
      </layout>
    </item>
+
+<item>
+    <layout class="QHBoxLayout" name="run_line">
+     <item>
+      <widget class="QPushButton" name="run_button">
+       <property name="text">
+	       <string>Run Algorithm on Robot(s)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+
+
   </layout>
  </widget>
  <resources/>

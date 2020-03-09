@@ -1,10 +1,3 @@
-ip Speed01
-ip Speed02
-ip Speed03
-ip Swarm01
-ip Swarm02
-ip Swarm03
-ip Hunt01
-ip Hunt02
-ip Destroy01
-ip Hunt03
+123 dan
+111 Blessy
+1 temp
