@@ -2,6 +2,8 @@ import os
 import rospy
 import rospkg
 import subprocess
+import getpass
+
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
@@ -9,18 +11,19 @@ from python_qt_binding.QtWidgets import QWidget, QFileDialog, QLayoutItem, QChec
 from python_qt_binding.QtGui import QIcon
 
 robot_dict = {}
+user = getpass.getuser()
 
 class MyPlugin(Plugin):
 
     def __init__(self, context):
         super(MyPlugin, self).__init__(context)
-        # Give QObjects reasonable names
+        
         self.setObjectName('MyPlugin')
 
-        # Process standalone plugin command-line arguments
+        
         from argparse import ArgumentParser
         parser = ArgumentParser()
-        # Add argument(s) to the parser.
+        
         parser.add_argument("-q", "--quiet", action="store_true",
                       dest="quiet",
                       help="Put plugin in silent mode")
@@ -41,8 +44,8 @@ class MyPlugin(Plugin):
 	self._widget.add_robot.pressed.connect(self._update_robot_list)
 	self._widget.load_algorithm_button.pressed.connect(self._add_algorithm)
 	self._widget.run_button.pressed.connect(self.run_funct)
-
-	path = '/home/colin/deploy/robots.txt'
+	
+	path = '/home/' + user +'/deploy/robots.txt'
 	file_object = open(path, 'r')
 	counter = 0
 	for lines in file_object:
@@ -53,7 +56,7 @@ class MyPlugin(Plugin):
 		counter +=1
 	file_object.close()
 
-	path = '/home/colin/deploy/algorithms.txt'
+	path = '/home/' + user +'/deploy/algorithms.txt'
 	file_object = open(path, 'r')
 	alg_dict = {}
 	counter = 0
@@ -73,7 +76,7 @@ class MyPlugin(Plugin):
     def run_funct(self):
 	for check in robot_dict:
 		if robot_dict[check][1].checkState() == 2: # 2 is check state
-			subprocess.call(["/home/colin/deploy/start_robot.sh" ,robot_dict[check][0]])
+			subprocess.call(['/home/' + user +'/deploy/start_robot.sh' ,robot_dict[check][0]])
  
 
     def _add_algorithm(self, file_name=None):
@@ -83,7 +86,7 @@ class MyPlugin(Plugin):
             if file_name is None or file_name == '':
                 return
 	
-	path = '/home/colin/deploy/algorithms.txt'
+	path = '/home/' + user +'/deploy/algorithms.txt'
 	if file_name:	
 		file_object = open(path, 'a')
 		file_object.write(file_name)
@@ -92,8 +95,7 @@ class MyPlugin(Plugin):
 
 
     def _update_robot_list(self):
-	#path = '/opt/ros/kinetic/share/rqt_mypkg/resource/robots.txt'
-	path = '/home/colin/deploy/robots.txt'
+	path = '/home/' + user +'/deploy/robots.txt'
 	ip = self._widget.ip_address.text()
 	name = self._widget.robot_name.text()
 	if ip and name:
