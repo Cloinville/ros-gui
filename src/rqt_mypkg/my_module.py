@@ -42,7 +42,7 @@ class MyPlugin(Plugin):
 	self._widget.load_algorithm_button.pressed.connect(self._add_algorithm)
 	self._widget.run_button.pressed.connect(self.run_funct)
 
-	path = '/home/colin/ros-gui/deploy/robots.txt'
+	path = '/home/colin/deploy/robots.txt'
 	file_object = open(path, 'r')
 	counter = 0
 	for lines in file_object:
@@ -53,7 +53,7 @@ class MyPlugin(Plugin):
 		counter +=1
 	file_object.close()
 
-	path = '/home/colin/ros-gui/deploy/algorithms.txt'
+	path = '/home/colin/deploy/algorithms.txt'
 	file_object = open(path, 'r')
 	alg_dict = {}
 	counter = 0
@@ -73,7 +73,8 @@ class MyPlugin(Plugin):
     def run_funct(self):
 	for check in robot_dict:
 		if robot_dict[check][1].checkState() == 2: # 2 is check state
-			subprocess.call(["/home/colin/ros-gui/deploy/start_robot.sh" ,robot_dict[check][0]])
+			subprocess.call(["/home/colin/deploy/start_robot.sh" ,robot_dict[check][0]])
+ 
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:
@@ -82,7 +83,7 @@ class MyPlugin(Plugin):
             if file_name is None or file_name == '':
                 return
 	
-	path = '/home/colin/ros-gui/deploy/algorithms.txt'
+	path = '/home/colin/deploy/algorithms.txt'
 	if file_name:	
 		file_object = open(path, 'a')
 		file_object.write(file_name)
@@ -92,7 +93,7 @@ class MyPlugin(Plugin):
 
     def _update_robot_list(self):
 	#path = '/opt/ros/kinetic/share/rqt_mypkg/resource/robots.txt'
-	path = '/home/colin/ros-gui/deploy/robots.txt'
+	path = '/home/colin/deploy/robots.txt'
 	ip = self._widget.ip_address.text()
 	name = self._widget.robot_name.text()
 	if ip and name:
