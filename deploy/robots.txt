@@ -1,4 +1,3 @@
-123 dan
-111 Blessy
-1 temp
+123 Seeker07
+111 Dummy11
 192.168.1.12 robot03
