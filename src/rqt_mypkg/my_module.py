@@ -9,12 +9,14 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QFileDialog, QLayoutItem, QCheckBox
 from python_qt_binding.QtGui import QIcon
+from os.path import expanduser
+
 
 robot_dict = {}
-user = getpass.getuser()
+home = expanduser("~")
 
 class MyPlugin(Plugin):
-
+	#Do Not Touch, this is required code for python qt
     def __init__(self, context):
         super(MyPlugin, self).__init__(context)
         
@@ -39,13 +41,14 @@ class MyPlugin(Plugin):
         self._widget.setObjectName('MyPluginUi')
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
-        
+    #There is where icons and logic for buttons are set    
 	self._widget.load_algorithm_button.setIcon(QIcon.fromTheme('document-open'))
 	self._widget.add_robot.pressed.connect(self._update_robot_list)
 	self._widget.load_algorithm_button.pressed.connect(self._add_algorithm)
 	self._widget.run_button.pressed.connect(self.run_funct)
 	
-	path = '/home/' + user +'/deploy/robots.txt'
+	#This loops through robots.txt to populate the robots section
+	path =  home +'/deploy/robots.txt'
 	file_object = open(path, 'r')
 	counter = 0
 	for lines in file_object:
@@ -56,7 +59,8 @@ class MyPlugin(Plugin):
 		counter +=1
 	file_object.close()
 
-	path = '/home/' + user +'/deploy/algorithms.txt'
+	#This loops through algorithms.txt to populate the algorithms section
+	path = home +'/deploy/algorithms.txt'
 	file_object = open(path, 'r')
 	alg_dict = {}
 	counter = 0
@@ -76,26 +80,26 @@ class MyPlugin(Plugin):
     def run_funct(self):
 	for check in robot_dict:
 		if robot_dict[check][1].checkState() == 2: # 2 is check state
-			subprocess.call(['/home/' + user +'/deploy/start_robot.sh' ,robot_dict[check][0]])
+			subprocess.call([home +'/deploy/start_robot.sh' ,robot_dict[check][0]])
  
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:
-            file_name, _ = QFileDialog.getOpenFileName(
-                self._widget, self.tr('Upload Algorithm'), None, None)
+            file_name = QFileDialog.getExistingDirectory(
+                self._widget, self.tr('Upload Algorithm'), None, QFileDialog.ShowDirsOnly)
             if file_name is None or file_name == '':
                 return
 	
-	path = '/home/' + user +'/deploy/algorithms.txt'
+	path = home +'/deploy/algorithms.txt'
 	if file_name:	
 		file_object = open(path, 'a')
-		file_object.write(file_name)
+		file_object.write(file_name + '\n')
 		file_object.close()
 		print("Added Algorithm ")
 
 
     def _update_robot_list(self):
-	path = '/home/' + user +'/deploy/robots.txt'
+	path = home +'/deploy/robots.txt'
 	ip = self._widget.ip_address.text()
 	name = self._widget.robot_name.text()
 	if ip and name:
