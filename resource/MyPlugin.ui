@@ -103,6 +103,13 @@
 
 <item>
     <layout class="QHBoxLayout" name="run_line">
+      <item>
+      <widget class="QPushButton" name="push_button">
+       <property name="text">
+         <string>Push Algorithm onto Robot(s)</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="run_button">
        <property name="text">

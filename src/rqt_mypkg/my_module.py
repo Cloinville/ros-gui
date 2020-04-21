@@ -13,6 +13,7 @@ from os.path import expanduser
 
 
 robot_dict = {}
+alg_dict = {}
 home = expanduser("~")
 
 class MyPlugin(Plugin):
@@ -46,6 +47,7 @@ class MyPlugin(Plugin):
 	self._widget.add_robot.pressed.connect(self._update_robot_list)
 	self._widget.load_algorithm_button.pressed.connect(self._add_algorithm)
 	self._widget.run_button.pressed.connect(self.run_funct)
+	self._widget.push_button.pressed.connect(self.push_funct)
 	
 	#This loops through robots.txt to populate the robots section
 	path =  home +'/deploy/robots.txt'
@@ -62,13 +64,12 @@ class MyPlugin(Plugin):
 	#This loops through algorithms.txt to populate the algorithms section
 	path = home +'/deploy/algorithms.txt'
 	file_object = open(path, 'r')
-	alg_dict = {}
 	counter = 0
 	for lines in file_object:
 		values = lines.split('/')
 		if values[-1] is not None or "":
-			alg_dict[counter] = QCheckBox(values[-1])
-			self._widget.algorithm_radio_layout.addWidget(alg_dict.get(counter),int(counter/3),counter%3,1,1)
+			alg_dict[counter] = [lines,QCheckBox(values[-1])]
+			self._widget.algorithm_radio_layout.addWidget(alg_dict.get(counter)[1],int(counter/3),counter%3,1,1)
 		counter +=1
 	file_object.close()	
 	
@@ -81,7 +82,17 @@ class MyPlugin(Plugin):
 	for check in robot_dict:
 		if robot_dict[check][1].checkState() == 2: # 2 is check state
 			subprocess.call([home +'/deploy/start_robot.sh' ,robot_dict[check][0]])
- 
+
+	
+    def push_funct(self):
+	for alg_check in alg_dict:
+		for check in robot_dict:
+			if robot_dict[check][1].checkState() == 2:
+				if alg_dict[alg_check][1].checkState() == 2:
+				#subprocess.call([home +'/deploy/start_robot.sh' ,robot_dict[check][0]])
+					print("Found")
+
+
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:
