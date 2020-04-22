@@ -89,10 +89,7 @@ class MyPlugin(Plugin):
 		for check in robot_dict:
 			if robot_dict[check][1].checkState() == 2:
 				if alg_dict[alg_check][1].checkState() == 2:
-				#subprocess.call([home +'/deploy/start_robot.sh' ,robot_dict[check][0]])
-					print("Found")
-
-
+					subprocess.call([home +'/deploy/start_robot.sh', robot_dict[check][0], alg_dict[alg_check][0]])
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:

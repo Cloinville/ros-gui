@@ -1,3 +1,7 @@
 #!/bin/bash
 me="$(hostname)"
-sshpass -p swarmies ssh -o "StrictHostKeyChecking no" ubuntu@$1 "cd ~/Minimal-Viable-Forager/misc && sudo ./rover_onboard_node_launch_pi.sh $me & echo swarmies"
+sshpass -p swarmies scp -o "StrictHostKeyChecking no" $2/src/* ubuntu@$1:/~/Minimal-Viable-Forager/src/behaviours/src 
+sshpass -p swarmies scp -o "StrictHostKeyChecking no" $2/include/* ubuntu@$1:/~/Minimal-Viable-Forager/src/behaviours/include 
+#THIS NEEDS TO BE TESTED ON HARDWARE FOR BUGS
+#I might have the file path wrong on the robots
+#This assumes that when an algorithm is uploaded, its files are in an src and include dir
