@@ -68,7 +68,7 @@ class MyPlugin(Plugin):
 	for lines in file_object:
 		values = lines.split('/')
 		if values[-1] is not None or "":
-			alg_dict[counter] = [lines,QCheckBox(values[-1])]
+			alg_dict[counter] = [lines,QCheckBox(values[-1]),values[-1].rstrip()]
 			self._widget.algorithm_radio_layout.addWidget(alg_dict.get(counter)[1],int(counter/3),counter%3,1,1)
 		counter +=1
 	file_object.close()	
@@ -79,9 +79,11 @@ class MyPlugin(Plugin):
 	context.add_widget(self._widget)
 
     def run_funct(self):
-	for check in robot_dict:
-		if robot_dict[check][1].checkState() == 2: # 2 is check state
-			subprocess.call([home +'/deploy/start_robot.sh' ,robot_dict[check][0]])
+	for alg_check in alg_dict:
+		for check in robot_dict:
+			if robot_dict[check][1].checkState() == 2:
+				if alg_dict[alg_check][1].checkState() == 2:
+					subprocess.call([home +'/deploy/start_robot.sh', robot_dict[check][0], alg_dict[alg_check][2]])
 
 	
     def push_funct(self):
@@ -89,7 +91,7 @@ class MyPlugin(Plugin):
 		for check in robot_dict:
 			if robot_dict[check][1].checkState() == 2:
 				if alg_dict[alg_check][1].checkState() == 2:
-					subprocess.call([home +'/deploy/start_robot.sh', robot_dict[check][0], alg_dict[alg_check][0]])
+					subprocess.call([home +'/deploy/push_alg.sh', robot_dict[check][0], alg_dict[alg_check][0]])
 
     def _add_algorithm(self, file_name=None):
 	if file_name is None:
