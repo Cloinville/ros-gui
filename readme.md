@@ -49,5 +49,32 @@ This feature will take the one algorithm you have selected and attempt to run th
 
 ## Code Details
 
+**Deploy**
+
+This folder contains all of the files that are visable outside of the repository, these files exist on their on in the case where you do not need the repo on the machine but only the deployed version of the code and these files to opperate everything. 
+
+**-Algorithms.txt** stores the file locations of all uploaded algorithm folders
+
+**-Robots.txt** stores name and ip address of all submitted robots
+ 
+**-push_alg.sh** script used to ssh into robot and upload code under behaviors package
+   
+**-start_robot.sh** script used to ssh into robot to change current algorithm to new one and run robot
+
+
+**Resources**
+
+This folder is required for RQT to function, it contains the **MyPlugin.ui** file which is required for the python to be able to build any of the QT elements. For any front end changes if a new field is going to be added, or if any text is going to be modified, this is where those changes must be made. 
+
+**src/rqt_-mypkg/my_module.py**
+
+This is the core file for this entire project. All functions that run in the background are controlled in this file. If an icon needs to be added/changed then this is the file to modify. All functions that run the backend need to be added/apended here. 
+
+**refresh.sh**
+
+This file is to be run after after you make changes to the repo code. When RQT runs it does not read the code in the repo but a directory in /opt. Because of this, this script moves your current code over to that directory and removes the old version of your code. This must be ran after any changes are made to see these changes on RQT. 
+
 ## Possible Bugs To Test with Hardware
+
+## TODO List for Future Developer
 
