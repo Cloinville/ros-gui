@@ -18,7 +18,7 @@ ROS-GUI is a Capstone project at California University Channel Islands(CSUCI) do
     1. After Running a RQT window should apprear similar to the image above
     
 ## Opening
-* To get RQT started up, Run the command ```rqt``` 
+* To get RQT started up Run ```roscore``` in another window or application, then Run the command ```rqt``` 
 * If ROS-GUI does not load, while tabbed into RQT click on **Plugins -> OptiTrack** to load the plugin
 ![Image of Load](https://i.imgur.com/fs7ifzt.png)
 
@@ -37,11 +37,15 @@ This feature shows all of the robots loaded in from the Add Robot feature. It al
 
 **Algorithm List**
 
+This feature shows all of the algorithms loaded in from the Add Algorithm feature. It also has a checkbox next to all of them so that if the user runs the "Push Algorithm onto Robots" or the "Run Algorithm on Robot(s)" commands, it will be clear as to which algorithms are needed for the execution of such commands.
 
 **Push Code to Robots**
 
+This feature will take the selected robots and algorithms and load the specefied algorithms onto the speficied robots. This process is done by using ssh into the robot and then copying over the new files uploaded with the algorithm feature.
 
 **Run Code on Robots** 
+
+This feature will take the one algorithm you have selected and attempt to run that algorithm on the robot. This is explained in more detail below, but will recompile the code on the robot so that it runs the specified algorithm.
 
 ## Code Details
 
