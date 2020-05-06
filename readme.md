@@ -74,7 +74,13 @@ This is the core file for this entire project. All functions that run in the bac
 
 This file is to be run after after you make changes to the repo code. When RQT runs it does not read the code in the repo but a directory in /opt. Because of this, this script moves your current code over to that directory and removes the old version of your code. This must be ran after any changes are made to see these changes on RQT. 
 
-## Possible Bugs To Test with Hardware
+If a file was not mentioned here, then you should not have to edit said file. Do not remove any files from this repo unless a complete overhaul is being done. 
 
 ## TODO List for Future Developer
+
+1. Test that all SSH operations in "push_alg.sh" and "start_robot.sh" work as inteneded on physical robots.
+2. Test that code properly recompiles on robots after running "start_robot.sh"
+3. Test that algorithms can be swapped mid run without failures on the robots. 
+4. Write a plugin similar to this one which reads published data from robots to display where they are on a grid/map
+5. Add functionalilty to this mad/grip to be able to click on the map and direct robots to said point
 
