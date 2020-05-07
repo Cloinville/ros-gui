@@ -2,7 +2,7 @@
 
 ![Image of GUI](https://i.imgur.com/52gKZ1h.png)
 
-ROS-GUI is a Capstone project at California University Channel Islands(CSUCI) done by Colin Hinton. The proposal of the project was to simplfy the process for running robots using OptiTrack for the DARPA Swarmathon Challenge and for other useages of the robotics at CSUCI. Below is documentation for the matinance of this project if ever picked up by another student. Detailing how to get set up, what all of the code does, how to use the tool, and possible bugs/issues that may be encounted due to lack of testing as a result of the COVID-19 pandemic.
+ROS-GUI is a Capstone project at California University Channel Islands(CSUCI) done by Colin Hinton. The proposal of the project was to simply the process for running robots using OptiTrack for the DARPA Swarmathon Challenge and for other usages of the robotics at CSUCI. Below is documentation for the maintenance of this project if ever picked up by another student. Detailing how to get set up, what all of the code does, how to use the tool, and possible bugs/issues that may be encountered due to lack of testing as a result of the COVID-19 pandemic.
 
 ## Dependencies
 
@@ -15,7 +15,7 @@ ROS-GUI is a Capstone project at California University Channel Islands(CSUCI) do
 1. Setup [Virtualbox](https://www.virtualbox.org/) to Run Ubuntu
 1. Follow [This Guide](http://wiki.ros.org/kinetic/Installation) to install ROS Kinetic on your VM(Virtual Machine)
 1. Clone [this repo](https://github.com/Cloinville/ros-gui) into your **home/user** directory and run ```sudo install.sh```
-    1. After Running a RQT window should apprear similar to the image above
+    1. After Running a RQT window should appear similar to the image above
     
 ## Opening
 * To get RQT started up Run ```roscore``` in another window or application, then Run the command ```rqt``` 
@@ -29,7 +29,7 @@ This feature allows users to add as many robots as they are working with to the 
 
 **Load Algorithm**
 
-This feature allows the user to upload algorithms made to run different code on the robots. When the user clicks on the file button, they are prompted to upload a directory. Based on the previous robot code arcitechture, when uploading a new algorithm it expects to fine a folder named "src" containing the source code and a folder named "include" containing dependency files. If in the future robots do not require this structure then this change needs to be reflected in the push_alg.sh file.
+This feature allows the user to upload algorithms made to run different code on the robots. When the user clicks on the file button, they are prompted to upload a directory. Based on the previous robot code architecture, when uploading a new algorithm it expects to fine a folder named "src" containing the source code and a folder named "include" containing dependency files. If in the future robots do not require this structure then this change needs to be reflected in the push_alg.sh file.
 
 **Robot List**
 
@@ -41,7 +41,7 @@ This feature shows all of the algorithms loaded in from the Add Algorithm featur
 
 **Push Code to Robots**
 
-This feature will take the selected robots and algorithms and load the specefied algorithms onto the speficied robots. This process is done by using ssh into the robot and then copying over the new files uploaded with the algorithm feature.
+This feature will take the selected robots and algorithms and load the specified algorithms onto the specified robots. This process is done by using ssh into the robot and then copying over the new files uploaded with the algorithm feature.
 
 **Run Code on Robots** 
 
@@ -51,7 +51,7 @@ This feature will take the one algorithm you have selected and attempt to run th
 
 **Deploy**
 
-This folder contains all of the files that are visable outside of the repository, these files exist on their on in the case where you do not need the repo on the machine but only the deployed version of the code and these files to opperate everything. 
+This folder contains all of the files that are viable outside of the repository, these files exist on their on in the case where you do not need the repo on the machine but only the deployed version of the code and these files to operate everything. 
 
 **-Algorithms.txt** stores the file locations of all uploaded algorithm folders
 
@@ -68,7 +68,7 @@ This folder is required for RQT to function, it contains the **MyPlugin.ui** fil
 
 **src/rqt_-mypkg/my_module.py**
 
-This is the core file for this entire project. All functions that run in the background are controlled in this file. If an icon needs to be added/changed then this is the file to modify. All functions that run the backend need to be added/apended here. 
+This is the core file for this entire project. All functions that run in the background are controlled in this file. If an icon needs to be added/changed then this is the file to modify. All functions that run the back end need to be added/appended here. 
 
 **refresh.sh**
 
@@ -78,9 +78,9 @@ If a file was not mentioned here, then you should not have to edit said file. Do
 
 ## TODO List for Future Developer
 
-1. Test that all SSH operations in "push_alg.sh" and "start_robot.sh" work as inteneded on physical robots.
+1. Test that all SSH operations in "push_alg.sh" and "start_robot.sh" work as intended on physical robots.
 2. Test that code properly recompiles on robots after running "start_robot.sh"
 3. Test that algorithms can be swapped mid run without failures on the robots. 
 4. Write a plugin similar to this one which reads published data from robots to display where they are on a grid/map
-5. Add functionalilty to this mad/grip to be able to click on the map and direct robots to said point
+5. Add functionality to this mad/grip to be able to click on the map and direct robots to said point
 
