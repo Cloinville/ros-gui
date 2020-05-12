@@ -2,7 +2,7 @@
 
 ![Image of GUI](https://i.imgur.com/52gKZ1h.png)
 
-ROS-GUI is a Capstone project at California University Channel Islands(CSUCI) done by Colin Hinton. The proposal of the project was to simply the process for running robots using OptiTrack for the DARPA Swarmathon Challenge and for other usages of the robotics at CSUCI. Below is documentation for the maintenance of this project if ever picked up by another student. Detailing how to get set up, what all of the code does, how to use the tool, and possible bugs/issues that may be encountered due to lack of testing as a result of the COVID-19 pandemic.
+ROS-GUI is a Capstone project at California State University Channel Islands(CSUCI) done by Colin Hinton. The proposal of the project was to simply the process for running robots using OptiTrack for the DARPA Swarmathon Challenge and for other usages of the robotics at CSUCI. Below is documentation for the maintenance of this project if ever picked up by another student. Detailing how to get set up, what all of the code does, how to use the tool, and possible bugs/issues that may be encountered due to lack of testing as a result of the COVID-19 pandemic.
 
 ## Dependencies
 
@@ -81,6 +81,7 @@ If a file was not mentioned here, then you should not have to edit said file. Do
 1. Test that all SSH operations in "push_alg.sh" and "start_robot.sh" work as intended on physical robots.
 2. Test that code properly recompiles on robots after running "start_robot.sh"
 3. Test that algorithms can be swapped mid run without failures on the robots. 
-4. Write a plugin similar to this one which reads published data from robots to display where they are on a grid/map
-5. Add functionality to this mad/grip to be able to click on the map and direct robots to said point
+4. Add feature/ability to delete robots/algs from UI
+5. Write a plugin similar to this one which reads published data from robots to display where they are on a grid/map
+6. Add functionality to this mad/grip to be able to click on the map and direct robots to said point
 
